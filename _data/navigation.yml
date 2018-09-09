@@ -1,0 +1,12 @@
+# main links
+main:
+  - title: "糖果"
+    url: /
+  - title: "作品"
+    url: /works/
+  - title: "树枝"
+    url: /archive/
+  - title: "贝壳"
+    url: /tags/
+  - title: "小妖"
+    url: /aboutme/

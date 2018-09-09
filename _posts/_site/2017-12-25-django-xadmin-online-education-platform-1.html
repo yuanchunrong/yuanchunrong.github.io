@@ -1,0 +1,853 @@
+<h1 id="搭建开发环境">搭建开发环境</h1>
+<p>开发环境版本：ubuntu16.04,python2.7,django1.9.8,mysql5.6,pymysql0.7.2,pillow2.8.1(用户上传图片需要依赖这个库)</p>
+
+<h2 id="创建项目">创建项目</h2>
+<p>1.在Desktop/mxonline文件夹下，创建虚拟环境<code class="highlighter-rouge">mxonline_venv</code>：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python@ubuntu:~/Desktop/mxonline$ mkvirtualenv mxonline_venv
+Running virtualenv with interpreter /usr/bin/python2
+New python executable in /home/asus/.virtualenvs/mxonline_venv/bin/python2
+Also creating executable in /home/asus/.virtualenvs/mxonline_venv/bin/python
+Installing setuptools, pkg_resources, pip, wheel...done.
+virtualenvwrapper.user_scripts creating /home/asus/.virtualenvs/mxonline_venv/bin/predeactivate
+virtualenvwrapper.user_scripts creating /home/asus/.virtualenvs/mxonline_venv/bin/postdeactivate
+virtualenvwrapper.user_scripts creating /home/asus/.virtualenvs/mxonline_venv/bin/preactivate
+virtualenvwrapper.user_scripts creating /home/asus/.virtualenvs/mxonline_venv/bin/postactivate
+virtualenvwrapper.user_scripts creating /home/asus/.virtualenvs/mxonline_venv/bin/get_env_details
+(mxonline_venv) python@ubuntu:~/Desktop/mxonline$ 
+</code></pre></div></div>
+<p>2.在虚拟环境中安装相关包：
+<code class="highlighter-rouge">$ pip install django==1.9.8</code>
+<code class="highlighter-rouge">$ pip install pillow==2.8.1</code>
+<code class="highlighter-rouge">$ pip install pymysql==0.7.2</code>
+3.创建项目：
+<code class="highlighter-rouge">$ django-admin startproject mxonline_project</code>
+<code class="highlighter-rouge">$ cd mxonline_project</code>
+目录结构图如下：
+<img src="http://ogzvyw5z8.bkt.clouddn.com/mxonline%E5%88%9D%E6%9C%9F%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%9B%BE.png" alt="初期目录结构图" />
+4.使用pycharm打开mxonline_project文件夹
+在pycharm中配置项目路径：打开File/Settings/Project:mxonline_project/Project Interpreter,点击设置图标Add Local，选择文件路径/home/asus/.virtualenvs/mxonline_venv/bin/python</p>
+<h1 id="设置数据库">设置数据库</h1>
+<p>1.创建要使用的数据库．
+登录数据库：<code class="highlighter-rouge">$ mysql -uroot -p</code>,回车后输入密码，当前用户名为root，密码为123.
+创建要使用的数据库：<code class="highlighter-rouge">$ create database mxonline charset=utf8;</code>数据库名为mxonline
+2.修改<code class="highlighter-rouge">mxonline_project/settings.py</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mxonline',
+        'USER':'root',
+		'PASSWORD':'123',
+		'HOST':'localhost',
+		'POST':'3306',
+    }
+}
+</code></pre></div></div>
+<p>3.修改<code class="highlighter-rouge">mxonline_project/__init__.py</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import pymysql
+pymysql.install_as_MySQLdb() #把pymysql当做mysqldb来使用
+</code></pre></div></div>
+<p>4.生成初始的mysql表单
+在pycharm中，点击Tools&gt;Ran manage.py Task就可以出现命令窗口，可以在其中直接输入命令行．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>manage.py@mxonline_project &gt; makemigrations
+bash -cl "/home/asus/.virtualenvs/mxonline_venv/bin/python /opt/pycharm-2017.2.3/helpers/pycharm/django_manage.py makemigrations /home/asus/Desktop/mxonline/mxonline_project"
+No changes detected
+
+Process finished with exit code 0
+manage.py@mxonline_project &gt; migrate
+bash -cl "/home/asus/.virtualenvs/mxonline_venv/bin/python /opt/pycharm-2017.2.3/helpers/pycharm/django_manage.py migrate /home/asus/Desktop/mxonline/mxonline_project"
+Operations to perform:
+  Apply all migrations: admin, contenttypes, auth, sessions
+Running migrations:
+  Rendering model states... DONE
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+</code></pre></div></div>
+<p>在pycharm中，单击Run&gt;Debug “mxonline_project”，就会出现命令行窗口，直接运行这个django项目．</p>
+<h2 id="django-app设计">django app设计</h2>
+<p>慕学网是一个在线授课学习平台，所以授课机构不仅仅是平台本身，还包括各个高校或个人．课程老师通过录制课程上传到平台中，学员通过平台学习课程．
+系统需求分析：
+users–用户管理
+course–课程管理
+organization–机构和教师管理
+operation–用户操作管理
+<img src="http://ogzvyw5z8.bkt.clouddn.com/app%20model%E5%88%86%E5%B1%82.png" alt="app model分层" /></p>
+<h2 id="users-app">users app</h2>
+<p>用来记录用户相关的信息．
+1.在pycharm中新建users app</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>manage.py@mxonline_project &gt; startapp users
+bash -cl "/home/asus/.virtualenvs/mxonline_venv/bin/python /opt/pycharm-2017.2.3/helpers/pycharm/django_manage.py startapp users /home/asus/Desktop/mxonline/mxonline_project"
+Following files were affected 
+ /home/asus/Desktop/mxonline/mxonline_project/users/views.py
+/home/asus/Desktop/mxonline/mxonline_project/users/models.py
+/home/asus/Desktop/mxonline/mxonline_project/users/tests.py
+/home/asus/Desktop/mxonline/mxonline_project/users/admin.py
+/home/asus/Desktop/mxonline/mxonline_project/users/apps.py
+/home/asus/Desktop/mxonline/mxonline_project/users/migrations/__init__.py
+/home/asus/Desktop/mxonline/mxonline_project/users/__init__.py
+Process finished with exit code 0
+</code></pre></div></div>
+<p>在<code class="highlighter-rouge">mxonline_project/settings.py</code>中注册app．由于模型中会自定义用户模型，所以也需要声明．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'users',
+]
+
+# 自定义用户model
+AUTH_USER_MODEL = "users.UserProfile"
+</code></pre></div></div>
+<p>2.在<code class="highlighter-rouge">users/models.py</code>中设计数据模型
+在任何一个项目中，用户表都是第一个被设计的．在设计自己的用户表之前，需要了解django本身给我们提供了哪些字段．可以通过navicat打开数据表，查看auth_user的字段有：id,password(密码),last_login(记录用户最后一次登录的时间),is_superuser(用户是否为超级用户),username(用户名称),first_name,last_name,email(邮箱),is_staff(是否为员工),is_active(表示用户是否为激活状态),date_joined(用户注册的时间).</p>
+
+<p>在系统中，users表单主要是在用户中心体现，需要昵称、生日、性别、地址、手机号码，这些在django的默认表单中是不具备的，所以可以让users继承原有的AbstractUser表单字段．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># -*- encoding:utf-8 -*-
+from __future__ import unicode_literals
+
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+# Create your models here.
+
+
+class UserProfile(AbstractUser):
+	nick_name = models.CharField(max_length=50,verbose_name=u"昵称",default=u"") #默认值为空
+	birthday = models.DateField(verbose_name=u"生日",null=True,blank=True) #允许为空
+	gender = models.CharField(max_length=10,choices=(("male",u"男"),("female",u"女")),default=u"female") #性别选项为男女，默认值为女
+	address = models.CharField(max_length=100,default=u"")
+	mobile = models.CharField(max_length=11,null=True,blank=True)
+	image = models.ImageField(upload_to="image/%Y/%m",default=u"image/default.png",max_length=100) #设置默认头像为default.png,img类型在后台存储为字符串类型，所以要设置最大长度
+
+	class Meta:
+		verbose_name = u"用户信息"
+		verbose_name_plural = verbose_name
+
+	def __unicode__(self):
+		return self.username
+</code></pre></div></div>
+<p>在pycharm中生成数据表并进行迁移．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>manage.py@mxonline_project &gt; makemigrations users
+
+manage.py@mxonline_project &gt; migrate users
+</code></pre></div></div>
+<p>邮箱验证码是一个比较独立的功能，基本上只和用户产生关系；首页轮播图也是一个比较独立的功能，所以也可以放在users app中．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from datetime import datetime
+
+class EmailVerifyRecord(models.Model):
+	code = models.CharField(max_length=20,verbose_name=u"验证码")
+	email = models.EmailField(max_length=50,verbose_name=u"邮箱")
+	send_type = models.CharField(verbose_name=u"验证码类型",choices=(("register",u"注册"),("forget",u"找回密码"),("update_email",u"修改邮箱")),max_length=100)
+	send_time = models.DateTimeField(verbose_name=u"发送时间",default=datetime.now) #记录发送时间，方便过期验证
+
+	class Meta:
+		verbose_name = u"邮箱验证码"
+		verbose_name_plural= verbose_name
+		
+	def __unicode__(self):
+		return '{0}({1})'.format(self.code,self.email)
+
+class Banner(models.Model):
+	title = models.CharField(max_length=100,verbose_name=u"标题")
+	image = models.ImageField(upload_to="banner/%Y/%m",verbose_name=u"轮播图",max_length=100)
+	url = models.URLField(max_length=200,verbose_name=u"访问地址")
+	index = models.IntegerField(default=100,verbose_name=u"顺序") #设置轮播图的顺序
+	add_time = models.DateTimeField(default=datetime.now,verbose_name=u"添加时间")
+
+	class Meta:
+		verbose_name = u"轮播图"
+		verbose_name_plural = verbose_name
+</code></pre></div></div>
+<h2 id="courses-app">courses app</h2>
+<p>用来记录课程相关的信息.
+1.在pycharm中新建courses app</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>manage.py@mxonline_project &gt; startapp courses
+bash -cl "/home/asus/.virtualenvs/mxonline_venv/bin/python /opt/pycharm-2017.2.3/helpers/pycharm/django_manage.py startapp courses /home/asus/Desktop/mxonline/mxonline_project"
+Following files were affected 
+ /home/asus/Desktop/mxonline/mxonline_project/courses/views.py
+/home/asus/Desktop/mxonline/mxonline_project/courses/admin.py
+/home/asus/Desktop/mxonline/mxonline_project/courses/apps.py
+/home/asus/Desktop/mxonline/mxonline_project/courses/migrations/__init__.py
+/home/asus/Desktop/mxonline/mxonline_project/courses/models.py
+/home/asus/Desktop/mxonline/mxonline_project/courses/tests.py
+/home/asus/Desktop/mxonline/mxonline_project/courses/__init__.py
+Process finished with exit code 0
+</code></pre></div></div>
+<p>在<code class="highlighter-rouge">mxonline_project/settings.py</code>中注册courses app．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'users',
+    'courses',
+]
+</code></pre></div></div>
+<p>2.在<code class="highlighter-rouge">courses/models.py</code>中设计数据模型
+一共有４个数据模型：Course-课程基本信息，Lesson-章节信息，Video-视频，CourseResource-课程资源.
+课程和章节是一对多的关系；章节和视频是一对多的关系；课程与课程资源是一对多的关系．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># -*- coding:utf-8 -*-
+from __future__ import unicode_literals
+from datetime import datetime
+from django.db import models
+from organization.models import CourseOrg,Teacher
+
+
+class Course(models.Model):
+    course_org = models.ForeignKey(CourseOrg,verbose_name=u"课程机构",null=True,blank=True)
+	name = models.CharField(max_length=50,verbose_name=u"课程名")
+	desc = models.CharField(max_length=300,verbose_name=u"课程描述")
+	detail = models.TextField(verbose_name=u"课程详情")
+	teacher = models.ForeignKey(Teacher,verbose_name=u"讲师",default=True)
+	degree = models.CharField(verbose_name=u"难度",choices=(("cj","初级"),("zj","中级"),("gj","高级")),max_length=2)
+	learn_times = models.IntegerField(default=0,verbose_name=u"学习时长(分钟数)")
+	students = models.IntegerField(default=0,verbose_name=u"学习人数")
+	fav_nums = models.IntegerField(default=0,verbose_name=u"收藏人数")
+	image = models.ImageField(upload_to="course/%Y/%m",verbose_name=u"logo",max_length=100)
+	click_nums = models.IntegerField(default=0,verbose_name=u"点击数")
+	category = models.CharField(max_length=20,verbose_name=u"课程类别",default=u"后端开发")
+	tag = models.CharField(default="",verbose_name=u"课程标签",max_length=10)
+	youneed_know = models.CharField(default="",max_length=300,verbose_name=u"课程须知")
+	teacher_tell = models.CharField(default="",max_length=300,verbose_name=u"老师告诉你")
+	add_time = models.DateTimeField(default=datetime.now,verbose_name=u"添加时间")
+
+	class Meta:
+		verbose_name = u"课程"
+		verbose_name_plural = verbose_name
+		
+	def get_zj_nums(self):
+		#获取课程章节数
+		return self.lesson_set.all().count()
+		
+	def get_learn_users(self):
+	    #获取学习用户
+		return self.usercourse_set.all()[:5]
+		
+	def get_course_lesson(self):
+		#获取课程所有章节
+		return self.lesson_set.all()
+		
+	def __unicode__(self):
+		return self.name
+
+class Lesson(models.Model):
+	course = models.ForeignKey(Course,verbose_name=u"课程") #课程与章节是一对多的关系
+	name = models.CharField(max_length=100,verbose_name=u"章节名")
+	add_time = models.DateTimeField(default=datetime.now,verbose_name=u"添加时间")
+
+	class Meta:
+		verbose_name = u"章节"
+		verbose_name_plural = verbose_name
+		
+	def get_lesson_video(self):
+		#获取章节视频
+		return self.video_set.all()
+		
+	def __unicode__(self):
+		return self.name
+
+
+class Video(models.Model):
+	lesson = models.ForeignKey(Lesson,verbose_name=u"章节") #章节与视频是一对多的关系
+	url = models.CharField(max_length=200,verbose_name=u"访问地址",default="")
+	name = models.CharField(max_length=100, verbose_name=u"视频名")
+	learn_times = models.IntegerField(default=0, verbose_name=u"学习时长(分钟数)")
+	add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
+
+	class Meta:
+		verbose_name = u"视频"
+		verbose_name_plural = verbose_name
+		
+	def __unicode__(self):
+		return self.name
+
+
+class CourseResource(models.Model):
+	course = models.ForeignKey(Course,verbose_name=u"课程") #课程与课程资源是一对多的关系
+	name = models.CharField(max_length=100, verbose_name=u"名称")
+	download = models.FileField(upload_to="course/resource/%Y/%m",verbose_name=u"资源文件",max_length=100)
+	add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
+
+	class Meta:
+		verbose_name = u"课程资源"
+		verbose_name_plural = verbose_name
+		
+	def __unicode__(self):
+		return self.name
+</code></pre></div></div>
+<h2 id="organization-app">organization app</h2>
+<p>用来记录授课机构以及教师的相关信息.
+1.在pycharm中新建organization app</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>manage.py@mxonline_project &gt; startapp organization
+bash -cl "/home/asus/.virtualenvs/mxonline_venv/bin/python /opt/pycharm-2017.2.3/helpers/pycharm/django_manage.py startapp organization /home/asus/Desktop/mxonline/mxonline_project"
+Following files were affected 
+ /home/asus/Desktop/mxonline/mxonline_project/organization/apps.py
+/home/asus/Desktop/mxonline/mxonline_project/organization/tests.py
+/home/asus/Desktop/mxonline/mxonline_project/organization/__init__.py
+/home/asus/Desktop/mxonline/mxonline_project/organization/admin.py
+/home/asus/Desktop/mxonline/mxonline_project/organization/views.py
+/home/asus/Desktop/mxonline/mxonline_project/organization/migrations/__init__.py
+/home/asus/Desktop/mxonline/mxonline_project/organization/models.py
+Process finished with exit code 0
+</code></pre></div></div>
+<p>在<code class="highlighter-rouge">mxonline_project/settings.py</code>中注册operation app.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+	'users',
+    'courses',
+	'organization',
+]
+</code></pre></div></div>
+<p>2.在<code class="highlighter-rouge">organization/models.py</code>中设计数据模型
+一共有3个数据模型：CourseOrg-课程机构基本信息；Teacher-教师基本信息；CityDict-城市信息．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># -*- coding:utf-8 -*-
+from __future__ import unicode_literals
+from datetime import datetime
+
+from django.db import models
+
+# Create your models here.
+
+
+class CityDict(models.Model):
+	name = models.CharField(max_length=20,verbose_name=u"城市")
+	desc = models.CharField(max_length=200,verbose_name=u"描述")
+	add_time = models.DateTimeField(default=datetime.now)
+
+	class Meta:
+		verbose_name = u"城市"
+		verbose_name_plural = verbose_name
+		
+	def __unicode__(self):
+		return self.name
+
+
+class CourseOrg(models.Model):
+	name = models.CharField(max_length=50,verbose_name=u"机构名称")
+	desc = models.TextField(verbose_name=u"机构描述")
+	category = models.CharField(default="pxjg",verbose_name=u"机构类别",max_length=20,choices=(("pxjg","培训机构"),("gr","个人"),("gx","高校")))
+	click_nums = models.IntegerField(default=0,verbose_name=u"点击数")
+	fav_nums = models.IntegerField(default=0,verbose_name=u"收藏数")
+	image = models.ImageField(upload_to="org/%Y/%m", verbose_name=u"封面图", max_length=100)
+	address = models.CharField(max_length=150,verbose_name=u"机构地址")
+	city = models.ForeignKey(CityDict,verbose_name=u"所在城市")
+	students = models.IntegerField(default=0,verbose_name=u"学习人数")
+	course_nums = models.IntegerField(default=0,verbose_name=u"课程数")
+	add_time = models.DateTimeField(default=datetime.now)
+
+	class Meta:
+		verbose_name = u"课程机构"
+		verbose_name_plural = verbose_name
+		
+	def get_teacher_nums(self):
+	    #获取课程机构的教师数量
+		return self.teacher_set.all().count()
+		
+	def __unicode__(self):
+		return self.name
+
+
+class Teacher(models.Model):
+	org = models.ForeignKey(CourseOrg,verbose_name=u"所属机构")
+	name = models.CharField(max_length=50, verbose_name=u"教师名")
+	work_years = models.IntegerField(default=0,verbose_name=u"工作年限")
+	work_company = models.CharField(max_length=50,verbose_name=u"就职公司")
+	work_position = models.CharField(max_length=50,verbose_name=u"公司职位")
+	points = models.CharField(max_length=50,verbose_name=u"教学特点")
+	click_nums = models.IntegerField(default=0, verbose_name=u"点击数")
+	fav_nums = models.IntegerField(default=0, verbose_name=u"收藏数")
+	age = models.IntegerField(default=18, verbose_name=u"年龄")
+	image = models.ImageField(default='',upload_to="teacher/%Y/%m", verbose_name=u"头像", max_length=100)
+	add_time = models.DateTimeField(default=datetime.now)
+
+	class Meta:
+		verbose_name = u"教师"
+		verbose_name_plural = verbose_name
+		
+	def __unicode__(self):
+		return self.name
+		
+	def get_course_nums(self):
+		#获取教师的课程数量
+		return self.course_set.all().count()
+</code></pre></div></div>
+<h2 id="operation-app">operation app</h2>
+<p>用来记录用户相关的操作，比如用户与课程之间的联系、用户和老师之间的联系．
+一共有５个数据模型：UserAsk-用户咨询；CourseComments-用户评论；UserFavorite-用户收藏；UserMessage-用户消息；UserCourse-用户学习的课程．
+1.在pycharm中新建operation app并在<code class="highlighter-rouge">mxonline_project/settings.py</code>中注册operation app.
+2.在<code class="highlighter-rouge">operation/models.py</code>中设计数据模型．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># -*- coding:utf-8 -*-
+from __future__ import unicode_literals
+
+from datetime import datetime
+
+from django.db import models
+
+from users.models import UserProfile
+from courses.models import Course
+
+# Create your models here.
+
+
+class UserAsk(models.Model):
+	name = models.CharField(max_length=20,verbose_name=u"姓名")
+	mobile = models.CharField(max_length=11,verbose_name=u"手机")
+	course_name = models.CharField(max_length=50,verbose_name=u"课程名")
+	add_time = models.DateTimeField(default=datetime.now,verbose_name=u"添加时间")
+
+	class Meta:
+		verbose_name = "用户咨询"
+		verbose_name_plural = verbose_name
+
+
+class CourseComments(models.Model):
+	"课程评论"
+	user = models.ForeignKey(UserProfile,verbose_name=u"用户")
+	course = models.ForeignKey(Course,verbose_name=u"课程")
+	comments = models.CharField(max_length=200,verbose_name=u"评论")
+	add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
+
+	class Meta:
+		verbose_name = u"课程名称"
+		verbose_name_plural = verbose_name
+
+
+class UserFavorite(models.Model):
+	user = models.ForeignKey(UserProfile, verbose_name=u"用户")
+	fav_id = models.IntegerField(default=0,verbose_name=u"数据id")
+	fav_type = models.IntegerField(choices=((1,"课程"),(2,"课程机构"),(3,"讲师")),default=1,verbose_name=u"收藏类型")
+	add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
+
+	class Meta:
+		verbose_name = u"用户收藏"
+		verbose_name_plural = verbose_name
+
+
+class UserMessage(models.Model):
+	user = models.IntegerField(default=0,verbose_name=u"接收用户")
+	message = models.CharField(max_length=500,verbose_name=u"消息内容")
+	has_read = models.BooleanField(default=False,verbose_name=u"是否已读")
+	add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
+
+	class Meta:
+		verbose_name = u"用户消息"
+		verbose_name_plural = verbose_name
+
+
+class UserCourse(models.Model):
+	user = models.ForeignKey(UserProfile, verbose_name=u"用户")
+	course = models.ForeignKey(Course, verbose_name=u"课程")
+	add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
+
+	class Meta:
+		verbose_name = u"用户课程"
+		verbose_name_plural = verbose_name
+</code></pre></div></div>
+<h2 id="数据表生成迁移">数据表生成迁移</h2>
+<p>在pycharm中生成迁移的时候出现问题，报<code class="highlighter-rouge">UnicodeEncodeError</code>错误，如下：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-3: ordinal not in range(128)
+</code></pre></div></div>
+<p>是编码错误，经过查询和测试，可能的原因是python2的默认编码方式是ascii，文件中有中文所以文件需要按照utf-8进行编码．在每个py文件头部声明的<code class="highlighter-rouge"># -*- coding:utf-8 -*-</code>没有起作用，解决方法是在每个py文件头部都引入如下三行代码：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import sys
+reload(sys)
+sys.setdefaultencoding('utf-8') #代码的作用也是声明utf-8编码
+</code></pre></div></div>
+<p>这样问题就解决了．
+参考文章：<a href="https://www.cnblogs.com/fnng/p/5008884.html">python编码问题解决</a></p>
+
+<p>1.把所有的数据模型都生成迁移文件，并执行迁移．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>manage.py@mxonline_project &gt; makemigrations
+bash -cl "/home/asus/.virtualenvs/mxonline_venv/bin/python /opt/pycharm-2017.2.3/helpers/pycharm/django_manage.py makemigrations /home/asus/Desktop/mxonline/mxonline_project"
+Migrations for 'courses':
+  0001_initial.py:
+    - Create model Course
+    - Create model CourseResource
+    - Create model Lesson
+    - Create model Video
+Migrations for 'operation':
+  0001_initial.py:
+    - Create model CourseComments
+    - Create model UserAsk
+    - Create model UserCourse
+    - Create model UserFavorite
+    - Create model UserMessage
+Migrations for 'users':
+  0002_banner_emailverifyrecord.py:
+    - Create model Banner
+    - Create model EmailVerifyRecord
+Migrations for 'organization':
+  0001_initial.py:
+    - Create model CityDict
+    - Create model CourseOrg
+    - Create model Teacher
+Following files were affected 
+ /home/asus/Desktop/mxonline/mxonline_project/users/migrations/0002_banner_emailverifyrecord.py
+/home/asus/Desktop/mxonline/mxonline_project/organization/migrations/0001_initial.py
+/home/asus/Desktop/mxonline/mxonline_project/operation/migrations/0001_initial.py
+/home/asus/Desktop/mxonline/mxonline_project/courses/migrations/0001_initial.py
+Process finished with exit code 0
+
+manage.py@mxonline_project &gt; migrate
+bash -cl "/home/asus/.virtualenvs/mxonline_venv/bin/python /opt/pycharm-2017.2.3/helpers/pycharm/django_manage.py migrate /home/asus/Desktop/mxonline/mxonline_project"
+Operations to perform:
+  Apply all migrations: users, sessions, admin, auth, courses, contenttypes, organization, operation
+Running migrations:
+  Rendering model states... DONE
+  Applying courses.0001_initial... OK
+  Applying operation.0001_initial... OK
+  Applying organization.0001_initial... OK
+  Applying users.0002_banner_emailverifyrecord... OK
+
+Process finished with exit code 0
+</code></pre></div></div>
+<p>2.在pycharm的根目录下新建python包名为apps，选中courses,operation,organization,users(按住ctrl,依次点击就可以选中)把它们拖到<code class="highlighter-rouge">apps</code>中，这时出现选择框取消＂Search for references＂和＂Open moved files in editor＂的勾选．
+对<code class="highlighter-rouge">apps</code>右键选择Mark Directory as » Source Root.
+在’mxonline_project/settings.py’中配置apps的搜索目录路径，这样就可以不改变模型类中引用的地址，具体代码如下：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import sys
+sys.path.insert(0,os.path.join(BASE_DIR,'apps'))
+</code></pre></div></div>
+<h1 id="通过xadmin搭建后台管理系统">通过xadmin搭建后台管理系统</h1>
+<p>后台管理系统的特点：权限管理，少前端样式，快速开发．</p>
+<h2 id="admin">admin</h2>
+<p>1.注册admin
+注册admin超级管理用户．输入用户名root,邮箱：root@163.com,密码：1234abcd</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(mxonline_venv) python@ubuntu:~/Desktop/mxonline/mxonline_project$ python manage.py createsuperuser
+Username: root
+Email address: root@163.com
+Password: 
+Password (again): 
+This password is too short. It must contain at least 8 characters.
+This password is entirely numeric.
+Password: 
+Password (again): 
+Superuser created successfully.
+</code></pre></div></div>
+<p>2.设置
+在<code class="highlighter-rouge">mxonline_project/settings.py</code>中进行admin相关的设置．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LANGUAGE_CODE = 'zh-hans' #设置admin使用中文显示
+
+TIME_ZONE = 'Asia/Shanghai'　#设置时区为上海
+
+USE_TZ = False #设置数据库中保存的时间使用本地时间
+</code></pre></div></div>
+<p>3.users admin注册模型类</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.contrib import admin
+
+# Register your models here.
+
+from models import UserProfile
+
+
+class UserProfileAdmin(admin.ModelAdmin):
+	pass
+
+
+admin.site.register(UserProfile,UserProfileAdmin)
+</code></pre></div></div>
+<h2 id="xadmin">xadmin</h2>
+<h3 id="pip安装xadmin">pip安装xadmin</h3>
+<p>在虚拟环境中使用pip安装：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(mxonline_venv) python@ubuntu:~/Desktop/mxonline/mxonline_project$ pip install xadmin
+</code></pre></div></div>
+<p>系统同时会安装django-crispy-forms, django-formtools,和httplib2依赖包．
+2.在<code class="highlighter-rouge">mxonline_project/settings.py</code>中注册应用．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INSTALLED_APPS = [
+    'xadmin',
+    'crispy_forms', #注册xamin依赖包
+]
+</code></pre></div></div>
+<p>在<code class="highlighter-rouge">mxonline_project/urls.py</code>中修改路由地址．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.conf.urls import url
+from django.contrib import admin
+import xadmin
+
+urlpatterns = [
+    url(r'^xadmin/', xadmin.site.urls),
+]
+</code></pre></div></div>
+<p>把<code class="highlighter-rouge">users admin.py</code>注册的模型类代码注释掉．
+同步<code class="highlighter-rouge">xadmin_usersettings</code>表单．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>manage.py@mxonline_project &gt; makemigrations
+bash -cl "/home/asus/.virtualenvs/mxonline_venv/bin/python /opt/pycharm-2017.2.3/helpers/pycharm/django_manage.py makemigrations /home/asus/Desktop/mxonline/mxonline_project"
+No changes detected
+
+Process finished with exit code 0
+manage.py@mxonline_project &gt; migrate
+bash -cl "/home/asus/.virtualenvs/mxonline_venv/bin/python /opt/pycharm-2017.2.3/helpers/pycharm/django_manage.py migrate /home/asus/Desktop/mxonline/mxonline_project"
+Operations to perform:
+  Apply all migrations: xadmin, users, sessions, admin, auth, courses, contenttypes, organization, operation
+Running migrations:
+  Rendering model states... DONE
+  Applying xadmin.0001_initial... OK
+
+Process finished with exit code 0
+</code></pre></div></div>
+<p>通过pycharm的debug启动项目，访问<code class="highlighter-rouge">http://127.0.0.1:8000/xadmin/</code>可以看到生成好的页面．
+<img src="http://ogzvyw5z8.bkt.clouddn.com/xadmin%E5%88%9D%E5%A7%8B%E9%A1%B5%E9%9D%A2.png" alt="xadmin初始页面" /></p>
+
+<h3 id="源码安装xadmin">源码安装xadmin</h3>
+<p>推荐使用源码安装xadmin，一方面是因为xadmin很多最新功能在没有发布到pypi时可以通过源码体验，另一方面是使用源码就可以更改源码的配置，使效果更好．</p>
+
+<p>1.访问<a href="https://github.com/sshwsfc/xadmin">xadmin的github地址</a>，点击右方Download ZIP,下载xadmin-master.zip压缩包．打开压缩包，复制xadmin文件夹，在pycharm中点击整个项目文件夹右键选择Paste就可以粘贴xadmin文件夹．
+在根目录新建python包名为<code class="highlighter-rouge">extra_apps</code>,把<code class="highlighter-rouge">xadmin</code>拖进<code class="highlighter-rouge">extra_apps</code>文件夹内．
+对<code class="highlighter-rouge">extra_apps</code>右键选择Mark Directory as » Source Root.这样就不用<code class="highlighter-rouge">from extra_apps import xadmin</code>,而可以直接<code class="highlighter-rouge">import xadmin</code>.</p>
+
+<p>把之前通过pip安装的xadmin卸载了．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(mxonline_venv) python@ubuntu:~/Desktop/mxonline/mxonline_project$ pip uninstall xadmin
+</code></pre></div></div>
+<p>2.检查虚拟环境中是否安装xadmin需要的插件,没有安装的进行安装：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>django&gt;=1.9.0
+django-crispy-forms&gt;=1.6.0
+django-import-export&gt;=0.5.1
+django-reversion&gt;=2.0.0
+django-formtools==1.0
+future==0.15.2
+httplib2==0.9.2
+six==1.10.0
+</code></pre></div></div>
+<p>3.在<code class="highlighter-rouge">mxonline_project/settings.py</code>中配置extra_apps的搜索目录路径，这样就可以不改变模型类中引用的地址，具体代码如下：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sys.path.insert(0,os.path.join(BASE_DIR,'extra_apps'))
+</code></pre></div></div>
+<p>4.更新数据库表单．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>manage.py@mxonline_project &gt; makemigrations xadmin
+bash -cl "/home/asus/.virtualenvs/mxonline_venv/bin/python /opt/pycharm-2017.2.3/helpers/pycharm/django_manage.py makemigrations xadmin /home/asus/Desktop/mxonline/mxonline_project"
+No changes detected in app 'xadmin'
+
+Process finished with exit code 0
+manage.py@mxonline_project &gt; migrate xadmin
+bash -cl "/home/asus/.virtualenvs/mxonline_venv/bin/python /opt/pycharm-2017.2.3/helpers/pycharm/django_manage.py migrate xadmin /home/asus/Desktop/mxonline/mxonline_project"
+Operations to perform:
+  Apply all migrations: xadmin
+Running migrations:
+  Rendering model states... DONE
+  Applying xadmin.0002_log... OK
+  Applying xadmin.0003_auto_20160715_0100... OK
+
+Process finished with exit code 0
+</code></pre></div></div>
+<p>5.其它settings.py和路由配置与通过pip安装xadmin相同．
+通过pycharm的debug启动项目，访问<code class="highlighter-rouge">http://127.0.0.1:8000/xadmin/</code>可以看到生成好的页面．
+<img src="http://ogzvyw5z8.bkt.clouddn.com/%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85xadmin%E5%88%9D%E5%A7%8B%E9%A6%96%E9%A1%B5.png" alt="源码安装xadmin初始首页" /></p>
+<h3 id="users-app的model注册">users app的model注册</h3>
+<p>在pycharm中设置新建py文件的模板：File»Settings,在左上角搜索template，找到File and Code Templates,选择Python Script,在右方模板中新加注释如下：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># -*- coding: utf-8 -*-
+</code></pre></div></div>
+<p>点击保存即可完成.</p>
+
+<p>在<code class="highlighter-rouge">apps/users/</code>新建文件<code class="highlighter-rouge">adminx.py</code>进行数据模型注册以及xadmin的配置．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># -*- coding: utf-8 -*-
+
+import xadmin
+
+from models import EmailVerifyRecord,Banner
+
+
+class EmailVerifyRecordAdmin(object):
+	list_display = ['code','email','send_type','send_time',]
+	search_fields = ['code','email','send_type',]
+	list_filter = ['code','email','send_type','send_time',]
+
+
+class BannerAdmin(object):
+	list_display = ['title','image','url','index','add_time',]
+	search_fields = ['title','image','url','index',]
+	list_filter = ['title','image','url','index','add_time',]
+
+
+xadmin.site.register(EmailVerifyRecord,EmailVerifyRecordAdmin)
+xadmin.site.register(Banner,BannerAdmin)
+</code></pre></div></div>
+<h3 id="courses-app的model注册">courses app的model注册</h3>
+<p>在<code class="highlighter-rouge">apps/courses/</code>新建文件<code class="highlighter-rouge">adminx.py</code>进行数据模型注册以及xadmin的配置．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># -*- coding: utf-8 -*-
+import xadmin
+from models import Course,Lesson,Video,CourseResource
+
+
+class CourseAdmin(object):
+	list_display = ['name', 'desc', 'detail', 'degree', 'learn_times','students','fav_nums','image','click_nums','add_time']
+	search_fields = ['name', 'desc', 'detail', 'degree', 'students','fav_nums','image','click_nums',]
+	list_filter = ['name', 'desc', 'detail', 'degree', 'learn_times','students','fav_nums','image','click_nums','add_time']
+
+
+class LessonAdmin(object):
+	list_display = ['course', 'name', 'add_time',]
+	search_fields = ['course', 'name',]
+	list_filter = ['course__name', 'name', 'add_time',]
+
+
+class VideoAdmin(object):
+	list_display = ['lesson', 'name', 'add_time',]
+	search_fields = ['lesson', 'name',]
+	list_filter = ['lesson', 'name', 'add_time',]
+
+
+class CourseResourceAdmin(object):
+	list_display = ['course', 'name', 'download','add_time',]
+	search_fields = ['course', 'name', 'download',]
+	list_filter = ['course', 'name', 'download','add_time',]
+
+
+xadmin.site.register(Course,CourseAdmin)
+xadmin.site.register(Lesson,LessonAdmin)
+xadmin.site.register(Video,VideoAdmin)
+xadmin.site.register(CourseResource,CourseResourceAdmin)
+</code></pre></div></div>
+<h3 id="organization-app的model注册">organization app的model注册</h3>
+<p>在<code class="highlighter-rouge">apps/organization/</code>新建文件<code class="highlighter-rouge">adminx.py</code>进行数据模型注册以及xadmin的配置．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># -*- coding: utf-8 -*-
+import xadmin
+
+from models import CityDict,CourseOrg,Teacher
+
+
+class CityDictAdmin(object):
+	list_display = ['name','desc','add_time',]
+	search_fields = ['name','desc',]
+	list_filter = ['name','desc','add_time',]
+
+
+class CourseOrgAdmin(object):
+	list_display = ['name','desc','click_nums','fav_nums','image','address','add_time',]
+	search_fields = ['name','desc','click_nums','fav_nums','image','address','city',]
+	list_filter = ['name','desc','click_nums','fav_nums','image','address','add_time',]
+
+
+class TeacherAdmin(object):
+	list_display = ['org','name','work_years','work_company','work_position','points','click_nums','fav_nums','add_time',]
+	search_fields = ['org','name','work_years','work_company','work_position','points','click_nums','fav_nums',]
+	list_filter = ['org','name','work_years','work_company','work_position','points','click_nums','fav_nums','add_time',]
+
+
+xadmin.site.register(CityDict,CityDictAdmin)
+xadmin.site.register(CourseOrg,CourseOrgAdmin)
+xadmin.site.register(Teacher,TeacherAdmin)
+</code></pre></div></div>
+<h3 id="operation-app的model注册">operation app的model注册</h3>
+<p>在<code class="highlighter-rouge">apps/operation/</code>新建文件<code class="highlighter-rouge">adminx.py</code>进行数据模型注册以及xadmin的配置．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># -*- coding: utf-8 -*-
+import xadmin
+
+from models import UserAsk,CourseComments,UserFavorite,UserMessage,UserCourse
+
+
+class UserAskAdmin(object):
+	list_display = ['name','mobile','course_name','add_time',]
+	search_fields = ['name','mobile','course_name',]
+	list_filter = ['name','mobile','course_name','add_time',]
+
+
+class UserCourseAdmin(object):
+	list_display = ['user','course','add_time',]
+	search_fields = ['user','course',]
+	list_filter = ['user','course','add_time',]
+
+
+class UserMessageAdmin(object):
+	list_display = ['user','message','has_read','add_time']
+	search_fields = ['user','message','has_read',]
+	list_filter = ['user','message','has_read','add_time']
+
+
+class CourseCommentsAdmin(object):
+	list_display = ['user','course','comments','add_time']
+	search_fields = ['user','course','comments',]
+	list_filter = ['user','course','comments','add_time']
+
+
+class UserFavoriteAdmin(object):
+	list_display = ['user','fav_id','fav_type','add_time']
+	search_fields = ['user','fav_id','fav_type',]
+	list_filter = ['user','fav_id','fav_type','add_time']
+
+
+xadmin.site.register(UserAsk,UserAskAdmin)
+xadmin.site.register(UserCourse,UserCourseAdmin)
+xadmin.site.register(UserMessage,UserMessageAdmin)
+xadmin.site.register(CourseComments,CourseCommentsAdmin)
+xadmin.site.register(UserFavorite,UserFavoriteAdmin)
+</code></pre></div></div>
+<p>模型注册完毕，如图所示：
+<img src="http://ogzvyw5z8.bkt.clouddn.com/xadmin%E6%A8%A1%E5%9E%8B%E6%B3%A8%E5%86%8C%EF%BC%91.png" alt="xadmin模型注册１" />
+<img src="http://ogzvyw5z8.bkt.clouddn.com/xadmin%E6%A8%A1%E5%9E%8B%E6%B3%A8%E5%86%8C%EF%BC%92.png" alt="xadmin模型注册２" /></p>
+<h3 id="xadmin全局配置">xadmin全局配置</h3>
+<p>1.主题设置
+在<code class="highlighter-rouge">users/adminx.py</code>中进行设置．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from xadmin import views
+
+class BaseSetting(object): #主题管理器
+	enable_themes = True #设置允许使用主题变化
+	use_bootswatch = True
+	
+xadmin.site.register(views.BaseAdminView,BaseSetting)
+</code></pre></div></div>
+<p>2.后台的顶部和底部信息以及菜单折叠设置．
+在<code class="highlighter-rouge">users/adminx.py</code>中进行设置．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class GlobalSettings(object):
+	site_title = "慕学后台管理系统"
+	site_footer = "慕学在线网"
+	menu_style = "accordion"
+	
+xadmin.site.register(views.CommAdminView,GlobalSettings)
+</code></pre></div></div>
+<p>3.修改主菜单英文变中文
+operation：
+在<code class="highlighter-rouge">apps/operation</code>的apps.py文件中定义中文名：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># -*- coding:utf-8 -*-
+from __future__ import unicode_literals
+
+from django.apps import AppConfig
+
+
+class OperationConfig(AppConfig):
+    name = 'operation'
+    verbose_name = u"用户操作"
+</code></pre></div></div>
+<p>在<code class="highlighter-rouge">apps/operation</code>的<code class="highlighter-rouge">__init__.py</code>文件中定义文件路径．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>default_app_config = "operation.apps.OperationConfig"
+</code></pre></div></div>
+<p>这样就可以把xadmin的主菜单英文变中文．</p>
+
+<p>users:
+在<code class="highlighter-rouge">apps/users</code>的apps.py文件中定义中文名：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class UsersConfig(AppConfig):
+    name = 'users'
+    verbose_name = u"用户信息"
+</code></pre></div></div>
+<p>在<code class="highlighter-rouge">apps/users</code>的<code class="highlighter-rouge">__init__.py</code>文件中定义文件路径．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>default_app_config = "users.apps.UsersConfig"
+</code></pre></div></div>
+
+<p>courses:
+在<code class="highlighter-rouge">apps/courses</code>的apps.py文件中定义中文名：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class CoursesConfig(AppConfig):
+    name = 'courses'
+    verbose_name = u"课程管理"
+</code></pre></div></div>
+<p>在<code class="highlighter-rouge">apps/courses</code>的<code class="highlighter-rouge">__init__.py</code>文件中定义文件路径．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>default_app_config = "courses.apps.CoursesConfig"
+</code></pre></div></div>
+
+<p>organization:
+在<code class="highlighter-rouge">apps/organization</code>的apps.py文件中定义中文名：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class OrganizationConfig(AppConfig):
+    name = 'organization'
+    verbose_name = u"机构管理"
+</code></pre></div></div>
+<p>在<code class="highlighter-rouge">apps/organization</code>的<code class="highlighter-rouge">__init__.py</code>文件中定义文件路径．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>default_app_config = "organization.apps.OrganizationConfig"
+</code></pre></div></div>
+
+<h1 id="changelog">ChangeLog</h1>
+<ul>
+  <li>2017-12-25　开始学习</li>
+</ul>

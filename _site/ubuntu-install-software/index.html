@@ -1,0 +1,485 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.12.1 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>ubuntu16.04安装各种软件汇总 - 袁春蓉的网志</title>
+<meta name="description" content="markdown编辑器Mango我使用的是Mango，初步试用，界面非常好看，支持常用的功能，可以导出为html或是pdf．安装方法：">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="袁春蓉的网志">
+<meta property="og:title" content="ubuntu16.04安装各种软件汇总">
+<meta property="og:url" content="http://localhost:4000/ubuntu-install-software/">
+
+
+  <meta property="og:description" content="markdown编辑器Mango我使用的是Mango，初步试用，界面非常好看，支持常用的功能，可以导出为html或是pdf．安装方法：">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2017-11-07T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/ubuntu-install-software/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "yuanchunrong",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="袁春蓉的网志 Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">袁春蓉的网志</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >糖果</a>
+            </li><li class="masthead__menu-item">
+              <a href="/works/" >作品</a>
+            </li><li class="masthead__menu-item">
+              <a href="/archive/" >树枝</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >贝壳</a>
+            </li><li class="masthead__menu-item">
+              <a href="/aboutme/" >小妖</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="袁春蓉" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">袁春蓉</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        灵魂选择自己的伴侣
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">四川 成都</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:2199553410@qq.com">
+            <meta itemprop="email" content="2199553410@qq.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/yuanchunrong" itemprop="sameAs">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="ubuntu16.04安装各种软件汇总">
+    <meta itemprop="description" content="markdown编辑器Mango我使用的是Mango，初步试用，界面非常好看，支持常用的功能，可以导出为html或是pdf．安装方法：">
+    <meta itemprop="datePublished" content="November 07, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">ubuntu16.04安装各种软件汇总
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h2 id="markdown编辑器">markdown编辑器</h2>
+<h3 id="mango">Mango</h3>
+<p>我使用的是Mango，初步试用，界面非常好看，支持常用的功能，可以导出为html或是pdf．
+<img src="http://ogzvyw5z8.bkt.clouddn.com/Mango.png" alt="Mango图片" />
+安装方法：</p>
+
+<p>１．从github下载适合的版本，我的是Linux　64bit，链接：<a href="https://github.com/egrcc/Mango/blob/master/README-zh.md">Mango</a>
+2.解压缩：tar zxvf 文件名.tar.gz
+3.进入解压后的文件夹，双击mango即可使用．</p>
+
+<p>缺点：文章字数太多(比如5000字以上)，编辑器用起来特别卡，输入一排文字往往需要等10秒左右才能够完全显示；但是字数少的时候不会出现这种问题．</p>
+<h3 id="retext">ReText</h3>
+<p>安装方法：
+在命令行运行：<code class="highlighter-rouge">$ sudo apt install retext</code></p>
+
+<p>添加语法高亮：
+1.在命令行运行<code class="highlighter-rouge">$ sudo apt install python-pygments</code>
+2.在编辑&gt;个人偏好&gt;Markdown语法拓展中添加：<code class="highlighter-rouge">codehilite,</code>
+<img src="http://ogzvyw5z8.bkt.clouddn.com/retext.png" alt="retext图片" /></p>
+
+<h2 id="wireshark">Wireshark</h2>
+
+<p>网络流量分析工具<a href="https://www.wireshark.org/">wireshark</a></p>
+
+<p>安装方法：
+<code class="highlighter-rouge">$ sudo apt-add-repository ppa:wireshark-dev/stable</code>
+<code class="highlighter-rouge">$ sudo apt-get update</code>
+<code class="highlighter-rouge">$ sudo apt-get install wireshark</code></p>
+
+<p>分配权限：
+添加wireshark用户组<code class="highlighter-rouge">$ sudo groupadd  wireshark</code>
+将dumpcap更改为wireshark用户组<code class="highlighter-rouge">$ sudo chgrp wireshark /usr/bin/dumpcap</code>
+让wireshark用户组有root权限使用dumpcap<code class="highlighter-rouge">$ sudo chmod 4755 /usr/bin/dumpcap</code>
+将需要使用的普通用户名加入wireshark用户组，我的用户是“python”（需要根据具体用户名修改,在#前面可以找到哟）<code class="highlighter-rouge">$ sudo gpasswd -a python wireshark </code></p>
+
+<p>在搜索栏搜索wireshark，打开即可使用</p>
+
+<p>参考链接：
+<a href="http://www.linuxidc.com/Linux/2016-08/134526.htm">Ubuntu 16.04下安装网络流量分析工具 Wireshark</a>
+<a href="https://jingyan.baidu.com/article/c74d60009d992f0f6a595de6.html">ubuntu下安装wireshark(以及配置非root)</a></p>
+
+<h2 id="anaconda">Anaconda</h2>
+
+<p><a href="https://www.anaconda.com/download/">Anaconda</a>里面集成了python科学计算的第三方库</p>
+
+<p>安装方法：</p>
+
+<p>1.在官网<a href="https://www.anaconda.com/download/">Anaconda</a>下载linux版本．
+2.进入下载目录，打开终端，输入命令：<code class="highlighter-rouge">$ bash Anaconda3-5.0.1-Linux-x86_64.sh</code>.根据提示继续就好．
+3.在命令行输入：<code class="highlighter-rouge">$ source ~/.bashrc</code>
+4.测试：命令行输入<code class="highlighter-rouge">$ python</code>,如果看到下面有Anaconda就表示安装成功了．</p>
+
+<p>参考链接：<a href="http://blog.csdn.net/gjq246/article/details/70848831">Ubuntu16.04安装Anaconda</a></p>
+
+<h2 id="navicat-premium">Navicat Premium</h2>
+<p><a href="https://www.navicat.com.cn/products/navicat-premium/">Navicat Premium</a>是一套数据库开发工具，让你从单一应用程序中同时连接 MySQL、MariaDB、SQL Server、Oracle、PostgreSQL 和 SQLite 数据库。它与 Amazon RDS、Amazon Aurora、Amazon Redshift、SQL Azure、Oracle Cloud 和 Google Cloud 等云数据库兼容。你可以快速轻松地创建、管理和维护数据库。</p>
+
+<p>安装方法：</p>
+
+<p>1.从<a href="https://www.navicat.com.cn/download/navicat-premium">官网</a>下载linux版本(linux 64bit)
+2.进入下载目录，解压tar文件：
+<code class="highlighter-rouge">$ tar -zxvf navicat120_premium_cs_x64.tar.gz</code>
+3.进入解压后的目录，运行命令<code class="highlighter-rouge">$ ./start_navicat</code></p>
+
+<p>打开时界面会显示为乱码，需要修改字符集，修改方法：
+1.进入解压目录，打开start_navicat文件，把<code class="highlighter-rouge">export LANG="en_US.UTF-8"</code>修改为<code class="highlighter-rouge">export LANG="zh_CN.UTF-8"</code>
+2.查看系统支持的字符集：<code class="highlighter-rouge">$ locale -a</code>,添加字符集：<code class="highlighter-rouge">$ export LANG=zh_CN．utf8</code></p>
+
+<p>破解方案：
+第一次执行start_navicat时，会在用户主目录下生成一个名为.navicat64的隐藏文件夹.(具体到个人电脑可能名称有点差异，可以使用命令<code class="highlighter-rouge">$ ll</code>查看．)把这个文件夹删除，下次启动navicat会重新生成此文件，试用期会按新的时间进行计算．</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python@ubuntu:~$ rm -rf .navicat64/
+</code></pre></div></div>
+<p>参考链接：
+<a href="http://blog.csdn.net/loadrunn/article/details/50886772">Ubuntu Navicat for MySQL安装以及破解方案</a>
+<a href="http://www.linuxidc.com/Linux/2017-04/143122.htm">Ubuntu Navicat for MySQL安装及永久使用</a></p>
+
+<h2 id="navicat-data-modeler">navicat-data-modeler</h2>
+<p><a href="http://www.navicat.com.cn/products/navicat-data-modeler">navicat-data-modeler</a>可以制作数据库模型图，同时可以直接生成sql代码，使用起来非常方便．</p>
+
+<p>安装方法：
+从<a href="http://www.navicat.com.cn/download/navicat-data-modeler">官网</a>下载linux版本(linux 64bit)
+其它安装步骤与Navicat Premium相同，可以参考前面的方法．</p>
+
+<p>打开时界面会显示为乱码，需要修改字符集，修改方法：
+进入解压目录，打开start_modeler文件，把<code class="highlighter-rouge">export LANG="en_US.UTF-8"</code>修改为<code class="highlighter-rouge">export LANG="zh_CN.UTF-8"</code></p>
+
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+  <li>2017-11-05 创建markdown编辑器</li>
+  <li>2017-11-22 安装Anaconda</li>
+  <li>2017-11-28 安装Navicat Premium</li>
+  <li>2017-12-12 安装navicat-data-modeler</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#%E6%8A%80%E6%9C%AF" class="page__taxonomy-item" rel="tag">技术</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-11-07T00:00:00+08:00">November 07, 2017</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/hexo-github-blog/" class="pagination--pager" title="ubuntu16.04基于hexo和github搭建属于自己的博客
+">Previous</a>
+    
+    
+      <a href="/ubuntu-system/" class="pagination--pager" title="ubuntu16.04操作系统问题处理及优化
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="https://github.com/yuanchunrong"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 yuanchunrong. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+  </body>
+</html>

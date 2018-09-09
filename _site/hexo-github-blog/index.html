@@ -1,0 +1,664 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.12.1 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>ubuntu16.04基于hexo和github搭建属于自己的博客 - 袁春蓉的网志</title>
+<meta name="description" content="博客安装方法以及域名绑定">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="袁春蓉的网志">
+<meta property="og:title" content="ubuntu16.04基于hexo和github搭建属于自己的博客">
+<meta property="og:url" content="http://localhost:4000/hexo-github-blog/">
+
+
+  <meta property="og:description" content="博客安装方法以及域名绑定">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2017-11-05T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/hexo-github-blog/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "yuanchunrong",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="袁春蓉的网志 Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">袁春蓉的网志</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >糖果</a>
+            </li><li class="masthead__menu-item">
+              <a href="/works/" >作品</a>
+            </li><li class="masthead__menu-item">
+              <a href="/archive/" >树枝</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >贝壳</a>
+            </li><li class="masthead__menu-item">
+              <a href="/aboutme/" >小妖</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="袁春蓉" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">袁春蓉</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        灵魂选择自己的伴侣
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">四川 成都</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:2199553410@qq.com">
+            <meta itemprop="email" content="2199553410@qq.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/yuanchunrong" itemprop="sameAs">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="ubuntu16.04基于hexo和github搭建属于自己的博客">
+    <meta itemprop="description" content="博客安装方法以及域名绑定">
+    <meta itemprop="datePublished" content="November 05, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">ubuntu16.04基于hexo和github搭建属于自己的博客
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h2 id="博客安装方法以及域名绑定">博客安装方法以及域名绑定</h2>
+
+<p>参考文档：</p>
+
+<p>1.<a href="https://hexo.io/zh-cn/docs/">hexo官方文档</a>
+2.<a href="http://theme-next.iissnan.com/">next使用文档</a>
+3.<a href="http://www.cnfeat.com/blog/2014/05/11/how-to-build-a-blog/">如何搭建一个独立博客——简明 GitHub Pages与 jekyll 教程</a>
+4.<a href="http://www.jianshu.com/p/cea41e5c9b2a?open_source=weibo_search">hexo搭建的Github博客绑定域名(万网域名)</a></p>
+
+<p>参照1和２两个文档基本就可以配置简单的完整博客了</p>
+
+<p>有关于使用github、购买域名、域名绑定可以参考3，在3的基础上绑定域名还需要多加一步，在/source下需要新建一个CNAME空白文档,打开CNAME在里面写上购买的域名,不需要加http和www：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yuanchunrong.com.cn
+</code></pre></div></div>
+<p>有关于购买域名，建议购买通过国外的服务商<a href="https://sg.godaddy.com/zh">godaddy</a>购买，域名可以不用备案．如果使用国内的阿里云<a href="https://wanwang.aliyun.com/">万网</a>购买，域名必须进行备案才能使用，备案需要各种证件以及二十多天的时间，如果只是用作个人博客就没有必要备案</p>
+
+<p>我的个人godaddy优惠码：<strong>gdbbg366</strong></p>
+
+<h2 id="hexo日常使用流程">hexo日常使用流程</h2>
+
+<p>1.<code class="highlighter-rouge">$ hexo s</code>打开本地浏览器地址，检查是否有异常
+2.<code class="highlighter-rouge">$ hexo new title</code>新建文章
+3.使用Mango打开文章，进行编辑，保存
+4.刷新地址，查看终端是否报错，如果没有加载出来，重启本地服务器
+5.<code class="highlighter-rouge">$ hexo clean</code>和<code class="highlighter-rouge">$ hexo g -d</code>，清除缓存，更新部署代码到github，以及备份源码
+6.访问网址www.yuanchunrong.com.cn查看效果</p>
+
+<h2 id="hexo常用命令行">hexo常用命令行</h2>
+<p>参考文档：<a href="https://hexo.io/zh-cn/docs/">hexo官方文档</a></p>
+
+<p>1.命令行：<code class="highlighter-rouge">$ hexo s</code></p>
+
+<p>启动本地服务器，用于预览主题。默认地址： http://localhost:4000/
+hexo s 是 hexo server 的缩写，命令效果一致；
+预览的同时可以修改文章内容或主题代码，保存后刷新页面即可；
+对 Hexo 根目录 _config.yml 的修改，需要重启本地服务器后才能预览效果，先运行<code class="highlighter-rouge">$ hexo clean</code>，做运行<code class="highlighter-rouge">$ hexo g</code>，最后运行<code class="highlighter-rouge">$ hexo s</code>．</p>
+
+<p>用法：博客修改之后，进行本地预览，确认无误，再推向github</p>
+
+<p>2.命令行：<code class="highlighter-rouge">$ hexo new &lt;"title"&gt;</code></p>
+
+<p>title会在浏览器的文章地址中进行显示，推荐用英文
+由于习惯文章标题使用中文，所以在具体的md文件的title中可以修改文章名为中文，这样博客中的文章标题将会是中文
+date可以自己设置，无论是过去的时间还是现在的，亦或是未来的，date决定文章归档时间</p>
+
+<p>3.在文章模板Scaffold中可以预先定义好变量，这样可以根据模板来建立文章</p>
+
+<p>4.命令行：<code class="highlighter-rouge">$ hexo g -d</code></p>
+
+<p>一行代码部署到github上，如果发现博客内容没有及时更新，可以使用命令行<code class="highlighter-rouge">$ hexo clean</code>，清除本地网页缓存之后重新部署．</p>
+
+<h2 id="next主题个性化设置">NexT主题个性化设置</h2>
+
+<p>参考文档：</p>
+
+<p><a href="http://theme-next.iissnan.com/">NexT官方文档</a></p>
+
+<p><a href="http://blog.csdn.net/w_ngzeqi/article/details/73863543">hexo之next主题个性化配置详细教程</a></p>
+
+<h3 id="设置网站图标">设置网站图标</h3>
+
+<p>网站图标是浏览器加载完成后，在浏览器标题上显示的小图标，这个图标必须是ico格式，<a href="http://www.faviconico.org/">ico在线制作网站</a></p>
+
+<p>具体实现方法：</p>
+
+<p>把转换后的图片放在路径为/themes/next/source/images，在主题配置文件中找到favicon，把small和medium的图片名称改为自己的图片名称</p>
+
+<h3 id="修改文章内链接文本样式">修改文章内链接文本样式</h3>
+
+<p>next默认的链接文本样式是灰色的，点击时几乎不变色，这样不是很好分辨，所以我们把改变为链接为蓝色，鼠标移动上去变为橙色</p>
+
+<p>具体实现方法：</p>
+
+<p>打开文件/themes/next/source/css/_common/components/post/post.styl，在文章末尾添加如下css样式：</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">//</span> <span class="err">文章内链接文本样式</span>
+<span class="nc">.post-body</span> <span class="nt">p</span> <span class="nt">a</span><span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#0593d3</span><span class="p">;</span>
+  <span class="nl">border-bottom</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">border-bottom</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="m">#0593d3</span><span class="p">;</span>
+  <span class="err">&amp;:hover</span> <span class="err">{</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="m">#fc6423</span><span class="p">;</span>
+    <span class="nl">border-bottom</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+    <span class="nl">border-bottom</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="m">#fc6423</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="err">}</span>
+</code></pre></div></div>
+<p>其中选择.post-body是为了不影响标题，选择p是为了不影响首页＂阅读全文＂的显示样式，颜色可以自己定义</p>
+
+<h3 id="修改文章底部带号的标签">修改文章底部带#号的标签</h3>
+
+<p>next文章底部自带样式的标签是用#号表示的，可以修改为用标签图标</p>
+
+<p>具体实现方法：</p>
+
+<p>打开模板/themes/next/layout/_macro/post.swig,搜索<code class="highlighter-rouge">rel="tag"&gt;#</code>,将#换成<code class="highlighter-rouge">&lt;i class="fa fa-tag"&gt;&lt;/i&gt;</code></p>
+
+<h3 id="修改作者头像形状并旋转">修改作者头像形状并旋转</h3>
+
+<p>next默认的头像为正方形且静止，可以修改形状并设置旋转的动画</p>
+
+<p>具体实现方法：</p>
+
+<p>打开/themes/next/source/css/_common/components/sidebar/sidebar-author.styl，在其中添加如下代码：</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.site-author-image</span> <span class="p">{</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="nb">block</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span> <span class="nb">auto</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="err">$</span><span class="n">site-author-image-padding</span><span class="p">;</span>
+  <span class="nl">max-width</span><span class="p">:</span> <span class="err">$</span><span class="n">site-author-image-width</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="err">$</span><span class="n">site-author-image-height</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="err">$</span><span class="n">site-author-image-border-width</span> <span class="nb">solid</span> <span class="err">$</span><span class="n">site-author-image-border-color</span><span class="p">;</span>
+
+  <span class="c">/* 头像圆形 */</span>
+  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">80px</span><span class="p">;</span>
+  <span class="nl">-webkit-border-radius</span><span class="p">:</span> <span class="m">80px</span><span class="p">;</span>
+  <span class="nl">-moz-border-radius</span><span class="p">:</span> <span class="m">80px</span><span class="p">;</span>
+  <span class="nl">box-shadow</span><span class="p">:</span> <span class="nb">inset</span> <span class="m">0</span> <span class="m">-1px</span> <span class="m">0</span> <span class="m">#333</span><span class="n">sf</span><span class="p">;</span>
+
+  <span class="c">/* 设置循环动画 [animation: (play)动画名称 (2s)动画播放时长单位秒或微秒 (ase-out)动画播放的速度曲线为以低速结束 
+    (1s)等待1秒然后开始动画 (1)动画播放次数(infinite为循环播放) ]*/</span>
+
+
+  <span class="c">/* 鼠标经过头像旋转360度 */</span>
+  <span class="nl">-webkit-transition</span><span class="p">:</span> <span class="n">-webkit-transform</span> <span class="m">1.0s</span> <span class="n">ease-out</span><span class="p">;</span>
+  <span class="nl">-moz-transition</span><span class="p">:</span> <span class="n">-moz-transform</span> <span class="m">1.0s</span> <span class="n">ease-out</span><span class="p">;</span>
+  <span class="nl">transition</span><span class="p">:</span> <span class="n">transform</span> <span class="m">1.0s</span> <span class="n">ease-out</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">img</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="c">/* 鼠标经过停止头像旋转 
+  -webkit-animation-play-state:paused;
+  animation-play-state:paused;*/</span>
+
+  <span class="c">/* 鼠标经过头像旋转360度 */</span>
+  <span class="nl">-webkit-transform</span><span class="p">:</span> <span class="n">rotateZ</span><span class="p">(</span><span class="m">360deg</span><span class="p">);</span>
+  <span class="nl">-moz-transform</span><span class="p">:</span> <span class="n">rotateZ</span><span class="p">(</span><span class="m">360deg</span><span class="p">);</span>
+  <span class="nl">transform</span><span class="p">:</span> <span class="n">rotateZ</span><span class="p">(</span><span class="m">360deg</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c">/* Z 轴旋转动画 */</span>
+<span class="k">@-webkit-keyframes</span> <span class="n">play</span> <span class="p">{</span>
+  <span class="nt">0</span><span class="o">%</span> <span class="p">{</span>
+    <span class="nl">-webkit-transform</span><span class="p">:</span> <span class="n">rotateZ</span><span class="p">(</span><span class="m">0deg</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nt">100</span><span class="o">%</span> <span class="p">{</span>
+    <span class="nl">-webkit-transform</span><span class="p">:</span> <span class="n">rotateZ</span><span class="p">(</span><span class="m">-360deg</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">@-moz-keyframes</span> <span class="n">play</span> <span class="p">{</span>
+  <span class="nt">0</span><span class="o">%</span> <span class="p">{</span>
+    <span class="nl">-moz-transform</span><span class="p">:</span> <span class="n">rotateZ</span><span class="p">(</span><span class="m">0deg</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nt">100</span><span class="o">%</span> <span class="p">{</span>
+    <span class="nl">-moz-transform</span><span class="p">:</span> <span class="n">rotateZ</span><span class="p">(</span><span class="m">-360deg</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">@keyframes</span> <span class="n">play</span> <span class="p">{</span>
+  <span class="nt">0</span><span class="o">%</span> <span class="p">{</span>
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">rotateZ</span><span class="p">(</span><span class="m">0deg</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nt">100</span><span class="o">%</span> <span class="p">{</span>
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">rotateZ</span><span class="p">(</span><span class="m">-360deg</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="在网站底部加上访问量">在网站底部加上访问量</h3>
+
+<p>具体实现方法：</p>
+
+<p>打开/themes/next/layout/_partials/footer.swig,在文档顶部引入访问量统计的js文件，代码如下：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">script</span> <span class="k">async</span> <span class="nx">src</span><span class="o">=</span><span class="s2">"https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"</span><span class="o">&gt;&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre></div></div>
+<p>在上述文件的其它合适位置添加显示统计的代码，我选择的是在文档末尾，代码如下：</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"post-meta-divider"</span><span class="nt">&gt;</span>|<span class="nt">&lt;/span&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"powered-by"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"fa fa-user-md"</span><span class="nt">&gt;&lt;/i&gt;&lt;span</span> <span class="na">id=</span><span class="s">"busuanzi_container_site_uv"</span><span class="nt">&gt;</span>
+  本站访客数:<span class="nt">&lt;span</span> <span class="na">id=</span><span class="s">"busuanzi_value_site_uv"</span><span class="nt">&gt;&lt;/span&gt;</span>
+<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+<h2 id="hexo源码备份方法">hexo源码备份方法</h2>
+
+<p>我之前没有注意备份hexo的源码，导致有一次修改博客代码后报bug，找不到解决方案，活生生的又重新搭建了一次博客，所以可以正常运行的源码一定要记得备份，这样不至于哪天不小心把网站整崩了都没有办法恢复到最新的正常的一版</p>
+
+<p>网络上提供了多种托管源码的方法，一般的方法是新建一个分支存放源码，每次更新代码后需要更新分别更新两个分支，其实还是比较复杂的</p>
+
+<p>最近发现<a href="https://github.com/hexojs/hexo-deployer-git">hexo-deployer-git</a>插件，可以自动实现分支的管理，避免了每次更新都要操作两次的玛法，非常好用．</p>
+
+<p>具体实现方法：</p>
+
+<p>首先安装插件</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ npm install git+ssh://git@github.com:hexojs/hexo-deployer-git.git --save
+</code></pre></div></div>
+<p>然后在项目根目录下的_config.yml进行如下配置：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>deploy:
+  - type: git               　　　　//使用github进行托管
+    repository: git@github.com:yuanchunrong/yuanchunrong.github.io.git
+    branch: master　　　//主分支，用来托管hexo生成的静态网页
+
+  - type: git
+    repo: git@github.com:yuanchunrong/yuanchunrong.github.io.git
+    branch: hexo	//新建分支hexo，用来托管源码
+    extend_dirs: /
+    ignore_hidden: false
+    ignore_pattern:
+        public: .
+</code></pre></div></div>
+<p>把仓库地址和分支名称修改为自己的就可以了</p>
+
+<p>这样每次写完博客或是修改源码后使用<code class="highlighter-rouge">hexo g -d</code>就能在更新静态网站的同时把其它所有文件更新到hexo分支上了</p>
+
+<p>换电脑的时候就能通过git重新下载下来整个项目，然后本地切换到远端的hero分支,<code class="highlighter-rouge">git checkout origin/hero</code>,就能重新获得所有的源文件</p>
+
+<p>对于每一个从git下载下来的项目或者主题，最好把每个的.git文件夹删掉，否则得通过submodule的方式来安装。</p>
+
+<p>参考链接：</p>
+
+<p><a href="https://github.com/hexojs/hexo-deployer-git">hexo-deployer-git</a></p>
+
+<p><a href="https://www.zhihu.com/question/21193762">使用hexo，如果换了电脑怎么更新博客？</a></p>
+
+<h2 id="hexo常见问题及异常">Hexo常见问题及异常</h2>
+
+<p>参考文档：<a href="http://blog.csdn.net/chwshuang/article/details/52350559">Hexo在Github中搭建博客系统(6)异常处理</a>
+<a href="http://theme-next.iissnan.com/faqs.html#count-incorrect-for-tags-categories">next文档-常见问题</a></p>
+
+<h3 id="标签分类数量统计不准确">标签/分类数量统计不准确？</h3>
+
+<p>因为 Hexo 有缓存的功能，因此有时候你会发现在 标签 和 分类 页面中的数量统计并不准确。 出现这个问题时，可以按照以下步骤重新生成站点的内容：</p>
+
+<p>删除站点目录下的<code class="highlighter-rouge">db.json</code>文件
+在站点目录下执行命令<code class="highlighter-rouge">hexo clean</code>
+在站点目录下执行命令，重新生成<code class="highlighter-rouge">hexo g</code></p>
+
+<p>当执行完以上步骤后，可以在本地启动服务器来验证下是否已经解决问题。</p>
+
+<h3 id="模板渲染错误异常">模板渲染错误异常</h3>
+
+<p>1.异常内容：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Unhandled rejection Template render error: (unknown path) [Line 8, Column 25]
+  Error: Unable to call `wordcount`, which is undefined or falsey
+</code></pre></div></div>
+<p>2.异常原因：
+这类异常一般是文章中使用了某个特殊字符, 解析时将表达式中的内容按函数处理了,特殊字符没有转义导致编译不通过</p>
+
+<p>3.解决方案：
+可以参考<a href="http://blog.csdn.net/chwshuang/article/details/52350551">Markdown语法特殊字符处理</a>这章内容,将特殊字符通过转义进行转换,当然,最好的方案是避免写特殊字符</p>
+
+<h3 id="源码备份操作问题">源码备份操作问题</h3>
+<p>使用命令行<code class="highlighter-rouge">$ hexo g -d</code>时，确保有网情况下一次性上传github成功，不要中途中断，否则会出现两个分支没有同时同步的情况，下次同步时会报错误如下：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>error: packfile .git/objects/pack/pack-203c2ee760be5fec8b76a6adfa38fae80551e25b.pack does not match index
+error: packfile .git/objects/pack/pack-203c2ee760be5fec8b76a6adfa38fae80551e25b.pack does not match index
+error: packfile .git/objects/pack/pack-203c2ee760be5fec8b76a6adfa38fae80551e25b.pack does not match index
+error: packfile .git/objects/pack/pack-203c2ee760be5fec8b76a6adfa38fae80551e25b.pack does not match index
+fatal: bad object HEAD
+fatal: 'git status --porcelain' failed in submodule themes/next
+FATAL Something's wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html
+Error: Spawn failed
+    at ChildProcess.&lt;anonymous&gt; (/home/asus/HexoBlog/node_modules/hexo-util/lib/spawn.js:52:19)
+    at emitTwo (events.js:135:13)
+    at ChildProcess.emit (events.js:224:7)
+    at Process.ChildProcess._handle.onexit (internal/child_process.js:209:12)
+</code></pre></div></div>
+<p>目前的粗暴的解决方法是：把github的yuanchunrong.github.io仓库删除，同时把本地隐藏文件夹.deploy_git/删除，重新使用命令行<code class="highlighter-rouge">$ hexo g -d</code>同步文件夹，方法简单有效粗暴，但是比较伤元气，所以以后操作的时候注意一下．</p>
+
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+  <li>2017-11-05　创建</li>
+  <li>2017-11-07　完成文章，成功搭建以及配置博客</li>
+  <li>2017-12-20　添加源码备份操作问题</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#%E6%8A%80%E6%9C%AF" class="page__taxonomy-item" rel="tag">技术</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-11-05T00:00:00+08:00">November 05, 2017</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/youth-crisiss/" class="pagination--pager" title="青春期危机
+">Previous</a>
+    
+    
+      <a href="/ubuntu-install-software/" class="pagination--pager" title="ubuntu16.04安装各种软件汇总
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="https://github.com/yuanchunrong"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 yuanchunrong. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+  </body>
+</html>

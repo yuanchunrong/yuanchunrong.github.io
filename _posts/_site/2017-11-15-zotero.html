@@ -1,0 +1,65 @@
+<p><a href="https://www.zotero.org">zotero</a>是一款非常棒的论文管理软件，配合浏览器插件使用可以轻松的收藏需要的资料，对论文或是书目做笔记都非常省心，很适合日常的读书卡片写作，也是阳老师力推的一款软件</p>
+
+<p>优秀的软件可以帮助我们简化流程，更加专注于创造</p>
+
+<h2 id="安装">安装</h2>
+
+<p>之前我在windows系统上面已经配置过一次，由于windows系统对于编程实在不友好，我又是一个穷鬼买不起mac电脑，于是开始转战linux系统，linux系统果然好用，只是日常的软件配置方法不一样，所以记录一下，方便下一次遇到相同情况可以快速上手</p>
+
+<p>如果是电脑是其他系统，可以直接通过<a href="https://www.zotero.org/download/">zotero官网下载</a></p>
+
+<p>但是ubuntu16.04下载独立版本后依然无法安装，我们可以通过命令行的方式自动安装，具体命令行如下：</p>
+
+<p><code class="highlighter-rouge">$ wget	    https://raw.github.com/smathot/zotero_installer/master/zotero_installer.sh -O /tmp/zotero_installer.sh
+chmod +x /tmp/zotero_installer.sh</code></p>
+
+<p><code class="highlighter-rouge">$ /tmp/zotero_installer.sh</code></p>
+
+<p>然后需要回答一系列的配置问题，都可以直接选择默认答案．如果选择global安装，那么第二行命令行需要修改为<code class="highlighter-rouge">$ sudo /tmp/zotero_installer.sh
+</code>
+之后搜索zotero软件，就可以打开使用了．推荐把它固定在启动器，方便快捷使用</p>
+
+<p>参考链接：
+<a href="https://askubuntu.com/questions/332109/how-to-install-zotero-in-ubuntu">how-to-install-zotero-in-ubuntu</a>
+<a href="https://forums.zotero.org/discussion/20262/zotero-standalone-automated-installer-linux/p1">Zotero standalone automated installer (Linux)</a></p>
+
+<h2 id="注册以及简单配置">注册以及简单配置</h2>
+
+<p>参考文章：
+<a href="http://www.yangzhiping.com/tech/zotero1.html">Zotero（1）：文献管理软件Zotero基础及进阶示范</a>
+<a href="http://www.yangzhiping.com/tech/zotero2.html">Zotero（2）：作为知识管理工具的Zotero</a>
+<a href="http://www.yangzhiping.com/tech/zotero3.html">Zotero（3）：平板与社交：再谈研究辅助工具Zotero兼配套APP</a>
+<a href="http://blog.yesmryang.net/tags/Zotero/">zotero系列文章１</a>
+<a href="http://blog.pulipuli.info/search/label/Zotero">zotero系列文章２</a></p>
+
+<p>在阳老师的文章里面已经详细的提到了注册以及大部分的配置方法，都是可以直接安装教程配置的，我就不重复了．</p>
+
+<h2 id="zotero云同步">zotero云同步</h2>
+
+<p>参考资料：
+1.<a href="https://www.zotero.org/support/sync">zotero官方文档-sync</a>
+2.<a href="https://www.zotero.org/support/kb/webdav_services">List of WebDAV services</a>
+3.<a href="https://www.douban.com/group/topic/105512965/">Zotero多平台文件存储及同步方案：webdav</a></p>
+
+<h3 id="zotero云同步-1">zotero云同步</h3>
+
+<h3 id="百度云">百度云</h3>
+
+<h3 id="坚果云">坚果云</h3>
+
+<h3 id="box">Box</h3>
+
+<p><a href="https://www.box.com/home">Box</a>也提供云存储服务，需要科学上网，它的免费个人账户有10GB的空间，250MB的文件上传下载限制．根据zotero提供的WebDAV列表，Box是相对比较好的．</p>
+
+<p>具体使用方法：</p>
+
+<p>１．注册<a href="https://www.box.com/home">Box</a></p>
+
+<p>２．点击＂编辑＂-＂首选项＂-＂同步＂-＂设置＂-＂文件同步＂，勾选同步文献库中的附件，选择使用WebDAV,在URL中填写<a href="https://www.zotero.org/support/kb/webdav_services">List of WebDAV services</a>中的WebDAV URL,填写在Box注册的用户名和密码，点击Verify Server确认.</p>
+
+<h2 id="changelog">ChangeLog</h2>
+
+<ul>
+  <li>2017-11-05 创建</li>
+  <li>2017-11-08 增加安装、注册、云同步</li>
+</ul>
