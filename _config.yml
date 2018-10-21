@@ -23,7 +23,7 @@ description              : "这里记录袁春蓉的日常."
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : yuanchunrong/yuanchunrong.github.io # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
-teaser                   : # /assets/images/favicon.ico # path of fallback teaser image, e.g. "/assets/images/500x300.png"
+teaser                   : /assets/images/favicon.ico # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
 comments:
@@ -105,7 +105,7 @@ author:
   bio              : "自己教自己学习，自己创造作品"
   location         : "四川 成都"
   email            : 2199553410@qq.com
-  uri              : # "http://www.yuanchunrong.com.cn"
+  uri              : # "http://www.yuanchunrong.com"
   home             : # null (default), "absolute or relative url to link to author home"
   bitbucket        :
   codepen          :
