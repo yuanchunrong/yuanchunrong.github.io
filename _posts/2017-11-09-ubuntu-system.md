@@ -2,6 +2,7 @@
 title: ubuntu16.04操作系统问题处理及优化
 tags:
  - 技术
+comments: true
 ---
 
 ## ubuntu磁盘内存不足

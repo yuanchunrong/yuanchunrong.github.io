@@ -1,5 +1,6 @@
 ---
 title: 青春期危机
+comments: true
 ---
 
 ## 问题描述

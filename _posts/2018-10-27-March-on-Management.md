@@ -2,6 +2,7 @@
 title: 马奇论管理--真理、美、正义和学问
 tags:
  - 马奇
+comments: true
 ---
 
 ## 马奇其人

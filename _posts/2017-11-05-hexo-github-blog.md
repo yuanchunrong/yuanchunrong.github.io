@@ -2,6 +2,7 @@
 title: ubuntu16.04基于hexo和github搭建属于自己的博客
 tags:
  - 技术
+comments: true
 ---
 
 ## 博客安装方法以及域名绑定

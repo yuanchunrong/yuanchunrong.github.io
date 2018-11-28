@@ -1,5 +1,6 @@
 ---
 title: 问题与作品
+comments: true
 ---
 
 ## 1.提问 

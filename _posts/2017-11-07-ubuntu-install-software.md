@@ -2,6 +2,7 @@
 title: ubuntu16.04安装各种软件汇总
 tags: 
  - 技术
+comments: true
 ---
 
 ## markdown编辑器

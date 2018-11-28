@@ -1,5 +1,6 @@
 ---
 title: 我想要什么
+comments: true
 ---
 
 ## 意义 
